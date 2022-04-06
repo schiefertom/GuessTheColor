@@ -7,7 +7,7 @@ const COLOR_BUTTONS = document.querySelectorAll('.color-button');
 let buttonToGuess;
 let answerField =  document.querySelector('#color-answer');
 
-RESET_BUTTON.addEventListener("click", () => {
+RESET_BUTTON.addEventListener("click", (event) => {
     createRandomColors(COLOR_BUTTONS);
     printQuestion();
     COLOR_BUTTONS.forEach((button) => {
@@ -20,7 +20,7 @@ RESET_BUTTON.addEventListener("click", () => {
             }
         });
     });
-    RESET_BUTTON.innerHTML = "Reset game";
+    event.target.innerHTML = "Reset game";
     answerField.innerHTML = "";
 });
 
