@@ -7,29 +7,43 @@ const COLOR_BUTTONS = document.querySelectorAll('.color-button');
 let buttonToGuess;
 let answerField =  document.querySelector('#color-answer');
 
+/*
+const OBSERVER = new MutationObserver(() => {
+   console.log("Callback that runs when observer is triggered.")
+    answerField.classList.add("animation-trigger");
+
+});
+OBSERVER.observe(answerField, {"childList" : true});
+*/
+
 RESET_BUTTON.addEventListener("click", (event) => {
     createRandomColors(COLOR_BUTTONS);
     printQuestion();
+
+
     COLOR_BUTTONS.forEach((button) => {
         button.addEventListener("click", () => {
+            setTimeout(() => {
+                answerField.classList.remove("animation-trigger");
+                }, 1000 );
             if (button === buttonToGuess) {
-                answerField.innerHTML = "Nice. Right answer. You are a RGB Pro!";
+                answerField.textContent = "Nice. Right answer. You are a RGB Pro!";
             }
             else {
-                answerField.innerHTML = "Try again.";
+                answerField.textContent = "Try again.";
             }
+            answerField.classList.add("animation-trigger");
         });
     });
-    event.target.innerHTML = "Reset game";
-    answerField.innerHTML = "";
+    event.target.textContent = "Reset game";
+    answerField.textContent = "";
 });
 
 
 function printQuestion() {
     let colorValueText = document.querySelector('#color-value');
     buttonToGuess = COLOR_BUTTONS.item(Math.floor(Math.random()*COLOR_BUTTONS.length));
-    let styleAttribute = buttonToGuess.getAttribute("style");
-    colorValueText.innerHTML = `Click the circle which has the following style:<br> ${styleAttribute}`;
+    colorValueText.textContent = `Click the circle which has the following style: ${buttonToGuess.style.backgroundColor}`;
 }
 
 function setButtonColor(button, red, green, blue) {
