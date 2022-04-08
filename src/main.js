@@ -20,19 +20,19 @@ RESET_BUTTON.addEventListener("click", (event) => {
     createRandomColors(COLOR_BUTTONS);
     printQuestion();
 
-
     COLOR_BUTTONS.forEach((button) => {
-        button.addEventListener("click", () => {
-            setTimeout(() => {
-                answerField.classList.remove("animation-trigger");
-                }, 1000 );
-            if (button === buttonToGuess) {
+        button.addEventListener("click", (event) => {
+            requestAnimationFrame(() => {
+                answerField.classList.add("animation-trigger");
+            });
+
+            if (event.target === buttonToGuess) {
                 answerField.textContent = "Nice. Right answer. You are a RGB Pro!";
             }
             else {
                 answerField.textContent = "Try again.";
             }
-            answerField.classList.add("animation-trigger");
+            answerField.classList.remove("animation-trigger");
         });
     });
     event.target.textContent = "Reset game";
@@ -68,3 +68,8 @@ function createRandomColors(colorButtons) {
 function makeColorValue() {
     return Math.round(Math.random()*255);
 }
+
+
+//=========
+//console.log(document.querySelector('#google-map'));
+document.querySelector('#color-answer').setAttribute("myValue", "new value");
